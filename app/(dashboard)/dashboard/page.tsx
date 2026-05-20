@@ -2,7 +2,7 @@ import { createServerSupabase } from '@/lib/supabaseServer'
 import Link from 'next/link'
 
 export default async function DashboardPage() {
-  const supabase = createServerSupabase()
+  const supabase = await createServerSupabase()
   const { data: { user } } = await supabase.auth.getUser()
   const { data: screenplays } = await supabase.from('screenplays').select('*').order('updated_at', { ascending: false }).limit(5)
   const { data: projects } = await supabase.from('projects').select('*').order('updated_at', { ascending: false }).limit(5)
@@ -11,7 +11,6 @@ export default async function DashboardPage() {
 
   return (
     <div>
-      {/* Page header */}
       <div style={{ marginBottom: 48 }}>
         <p style={{ fontFamily: "'Cinzel', serif", fontSize: '0.58rem', letterSpacing: '0.35em',
           color: 'var(--text-faint)', textTransform: 'uppercase', marginBottom: 10 }}>
@@ -24,11 +23,10 @@ export default async function DashboardPage() {
         <div style={{ width: 56, height: 2, background: 'var(--accent)', marginTop: 14, borderRadius: 1 }} />
       </div>
 
-      {/* Stats */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 14, marginBottom: 48 }}>
         {[
           { label: 'Screenplays', value: sc ?? 0, icon: '✦', href: '/screenplays' },
-          { label: 'Projects', value: pc ?? 0, icon: '◆', href: '/projects' },
+          { label: 'Projects',    value: pc ?? 0, icon: '◆', href: '/projects'    },
         ].map(stat => (
           <Link key={stat.label} href={stat.href} style={{ textDecoration: 'none' }}>
             <div className="card-hover" style={{ padding: '24px 26px', borderRadius: 4 }}>
@@ -50,7 +48,6 @@ export default async function DashboardPage() {
         ))}
       </div>
 
-      {/* Quick actions */}
       <div style={{ display: 'flex', gap: 10, marginBottom: 48, flexWrap: 'wrap' }}>
         <Link href="/screenplays/new" className="btn-primary"
           style={{ padding: '12px 28px', textDecoration: 'none', borderRadius: 2 }}>
@@ -62,11 +59,10 @@ export default async function DashboardPage() {
         </Link>
       </div>
 
-      {/* Recent */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 36 }}>
         {[
           { title: 'Recent Screenplays', items: screenplays, href: '/screenplays', linkBase: '/screenplays' },
-          { title: 'Recent Projects',    items: projects,    href: '/projects',    linkBase: '/projects' },
+          { title: 'Recent Projects',    items: projects,    href: '/projects',    linkBase: '/projects'    },
         ].map(section => (
           <div key={section.title}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
