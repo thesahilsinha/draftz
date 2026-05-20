@@ -12,9 +12,7 @@ export default function LoginPage() {
   const router = useRouter()
 
   const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
-    setError('')
+    e.preventDefault(); setLoading(true); setError('')
     const { error } = await supabase.auth.signInWithPassword({ email, password })
     if (error) { setError(error.message); setLoading(false) }
     else router.push('/dashboard')
@@ -22,37 +20,61 @@ export default function LoginPage() {
 
   return (
     <div style={{ width: '100%', maxWidth: 420 }}>
-      <div style={{ textAlign: 'center', marginBottom: 48 }}>
+      {/* Logo */}
+      <div style={{ textAlign: 'center', marginBottom: 44 }}>
         <Link href="/" style={{ textDecoration: 'none' }}>
-          <h1 style={{ fontFamily: "'Cinzel', serif", fontSize: '2.5rem', fontWeight: 900, color: '#c0c0c0', letterSpacing: '0.2em', textShadow: '0 0 30px rgba(192,192,192,0.2)' }}>DRAFTZ</h1>
+          <h1 style={{ fontFamily: "'Cinzel', serif", fontSize: '2.8rem', fontWeight: 900,
+            color: 'var(--silver)', letterSpacing: '0.2em',
+            textShadow: '0 0 40px rgba(200,200,200,0.15)' }}>
+            DRAFTZ
+          </h1>
         </Link>
-        <p style={{ fontFamily: "'EB Garamond', serif", color: '#888', fontStyle: 'italic', marginTop: 4 }}>Prodigy Pictures</p>
+        <p style={{ fontFamily: "'EB Garamond', serif", color: 'var(--text-muted)',
+          fontStyle: 'italic', marginTop: 6, fontSize: '1rem' }}>
+          Prodigy Pictures
+        </p>
       </div>
 
-      <div style={{ background: '#111', border: '1px solid #2a2a2a', borderRadius: 4, padding: '40px 36px' }}>
-        <h2 style={{ fontFamily: "'Cinzel', serif", fontSize: '0.8rem', letterSpacing: '0.3em', color: '#888', textTransform: 'uppercase', marginBottom: 32, textAlign: 'center' }}>Sign In</h2>
-
-        <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-          <div>
-            <label style={{ fontFamily: "'Cinzel', serif", fontSize: '0.6rem', letterSpacing: '0.2em', color: '#666', textTransform: 'uppercase', display: 'block', marginBottom: 8 }}>Email</label>
-            <input className="input-dark" type="email" value={email} onChange={e => setEmail(e.target.value)} required
-              style={{ width: '100%', padding: '12px 16px', borderRadius: 2 }} />
-          </div>
-          <div>
-            <label style={{ fontFamily: "'Cinzel', serif", fontSize: '0.6rem', letterSpacing: '0.2em', color: '#666', textTransform: 'uppercase', display: 'block', marginBottom: 8 }}>Password</label>
-            <input className="input-dark" type="password" value={password} onChange={e => setPassword(e.target.value)} required
-              style={{ width: '100%', padding: '12px 16px', borderRadius: 2 }} />
-          </div>
-          {error && <p style={{ color: '#ff4444', fontFamily: "'EB Garamond', serif", fontSize: '0.9rem', textAlign: 'center' }}>{error}</p>}
+      <div style={{ background: 'var(--surface)', border: '1px solid var(--border)',
+        borderRadius: 4, padding: '40px 36px' }}>
+        <h2 style={{ fontFamily: "'Cinzel', serif", fontSize: '0.7rem', letterSpacing: '0.3em',
+          color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: 28, textAlign: 'center' }}>
+          Sign In
+        </h2>
+        <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
+          {[
+            { label: 'Email', type: 'email', value: email, set: setEmail },
+            { label: 'Password', type: 'password', value: password, set: setPassword },
+          ].map(f => (
+            <div key={f.label}>
+              <label style={{ fontFamily: "'Cinzel', serif", fontSize: '0.58rem', letterSpacing: '0.2em',
+                color: 'var(--text-muted)', textTransform: 'uppercase', display: 'block', marginBottom: 8 }}>
+                {f.label}
+              </label>
+              <input className="input-dark" type={f.type} value={f.value}
+                onChange={e => f.set(e.target.value)} required
+                style={{ width: '100%', padding: '12px 16px', fontSize: '1rem' }} />
+            </div>
+          ))}
+          {error && (
+            <p style={{ color: '#e07070', fontFamily: "'EB Garamond', serif",
+              fontSize: '0.95rem', textAlign: 'center' }}>
+              {error}
+            </p>
+          )}
           <button type="submit" className="btn-primary" disabled={loading}
-            style={{ marginTop: 8, padding: '14px', borderRadius: 2, border: 'none', cursor: loading ? 'not-allowed' : 'pointer', opacity: loading ? 0.7 : 1, fontSize: '0.75rem' }}>
+            style={{ marginTop: 4, padding: '14px', borderRadius: 2, border: 'none',
+              cursor: loading ? 'not-allowed' : 'pointer', fontSize: '0.72rem', width: '100%' }}>
             {loading ? 'Entering...' : 'Enter'}
           </button>
         </form>
-
-        <p style={{ textAlign: 'center', marginTop: 24, fontFamily: "'EB Garamond', serif", color: '#666', fontSize: '0.9rem' }}>
+        <p style={{ textAlign: 'center', marginTop: 22,
+          fontFamily: "'EB Garamond', serif", color: 'var(--text-muted)', fontSize: '0.95rem' }}>
           No account?{' '}
-          <Link href="/register" style={{ color: '#c0c0c0', textDecoration: 'none' }}>Register here</Link>
+          <Link href="/register" style={{ color: 'var(--text-primary)', textDecoration: 'none',
+            borderBottom: '1px solid var(--border)' }}>
+            Register here
+          </Link>
         </p>
       </div>
     </div>
