@@ -125,3 +125,31 @@ h1, h2, h3, h4, h5, h6, .cinzel {
   border-radius: 2px;
   color: var(--silver-dim);
 }
+
+/* Print / PDF Export */
+@media print {
+  @page {
+    size: A4;
+    margin: 0;
+  }
+  body {
+    background: white !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  #screenplay-print-area {
+    box-shadow: none !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 72px 108px !important;
+    min-height: 100% !important;
+  }
+}
+
+/* Mobile screenplay fix */
+@media (max-width: 600px) {
+  .screenplay-page-wrap {
+    padding: 0 !important;
+  }
+}

@@ -1,18 +1,21 @@
-import Sidebar from '@/components/ui/Sidebar'
+import type { Metadata } from 'next'
+import './globals.css'
 
-export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+export const metadata: Metadata = {
+  title: 'DRAFTZ — Prodigy Pictures',
+  description: 'The Screenplay & Production Management Platform for Prodigy Pictures',
+}
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div style={{ display: 'flex', minHeight: '100vh', background: '#000' }}>
-      <Sidebar />
-      <main style={{ marginLeft: 220, flex: 1, padding: '40px 32px', minHeight: '100vh' }}
-        className="dashboard-main">
-        {children}
-      </main>
-      <style>{`
-        @media (max-width: 768px) {
-          .dashboard-main { margin-left: 0 !important; padding: 72px 16px 32px !important; }
-        }
-      `}</style>
-    </div>
+    <html lang="en">
+      <head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Cinzel:wght@400;600;700;900&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body>{children}</body>
+    </html>
   )
 }
