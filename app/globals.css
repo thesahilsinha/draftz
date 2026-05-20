@@ -1,64 +1,135 @@
-@import "tailwindcss";
 /* @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap'); */
+@import "tailwindcss";
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities; */
 
-/* @tailwind base; */
-
-/* @tailwind components
-; */
-/* @tailwind utilities; */
-
-:root {
-  --black:          #000000;
-  --deep:           #080808;
-  --surface:        #141414;
-  --surface2:       #1c1c1c;
-  --surface3:       #242424;
-  --border:         #333333;
-  --border-light:   #444444;
-
-  /* Text — much higher contrast */
-  --text-primary:   #f0f0f0;
-  --text-secondary: #b8b8b8;
-  --text-muted:     #888888;
-  --text-faint:     #555555;
-
-  --silver:         #c8c8c8;
-  --silver-bright:  #f0f0f0;
-  --silver-dim:     #909090;
-  --accent:         #d4af6a;   /* warm gold accent for highlights */
-  --danger:         #c0544a;
+/* ══════════════════════════════════════════
+   NOIR (default dark)
+══════════════════════════════════════════ */
+:root,
+[data-theme="noir"] {
+  --bg:            #000000;
+  --bg-deep:       #080808;
+  --surface:       #161616;
+  --surface2:      #1e1e1e;
+  --surface3:      #262626;
+  --border:        #2e2e2e;
+  --border2:       #3a3a3a;
+  --text:          #eeeeee;
+  --text-sub:      #aaaaaa;
+  --text-muted:    #777777;
+  --text-faint:    #444444;
+  --silver:        #c8c8c8;
+  --silver-bright: #f0f0f0;
+  --accent:        #d4af6a;
+  --accent2:       #b8960c;
+  --danger:        #c0544a;
+  --success:       #6aab7a;
+  --sidebar-bg:    #050505;
+  --sidebar-border:#1a1a1a;
+  --card-hover-shadow: 0 4px 24px rgba(0,0,0,0.6);
+  --input-bg:      #1e1e1e;
 }
 
+/* ══════════════════════════════════════════
+   LIGHT MODE
+══════════════════════════════════════════ */
+[data-theme="light"] {
+  --bg:            #f5f2ee;
+  --bg-deep:       #ede9e3;
+  --surface:       #ffffff;
+  --surface2:      #f0ece6;
+  --surface3:      #e8e3dc;
+  --border:        #d4cdc4;
+  --border2:       #bfb8ae;
+  --text:          #1a1612;
+  --text-sub:      #4a4540;
+  --text-muted:    #7a7268;
+  --text-faint:    #a09890;
+  --silver:        #2a2420;
+  --silver-bright: #000000;
+  --accent:        #8b6914;
+  --accent2:       #a07820;
+  --danger:        #b03028;
+  --success:       #2a7a3a;
+  --sidebar-bg:    #ede9e3;
+  --sidebar-border:#d4cdc4;
+  --card-hover-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  --input-bg:      #f5f2ee;
+}
+
+/* ══════════════════════════════════════════
+   COLORFUL / READABLE MODE
+══════════════════════════════════════════ */
+[data-theme="colorful"] {
+  --bg:            #0d1117;
+  --bg-deep:       #090d12;
+  --surface:       #161b22;
+  --surface2:      #1c2128;
+  --surface3:      #21262d;
+  --border:        #30363d;
+  --border2:       #3d444d;
+  --text:          #e6edf3;
+  --text-sub:      #b0bec5;
+  --text-muted:    #7d8fa6;
+  --text-faint:    #4a5568;
+  --silver:        #58a6ff;
+  --silver-bright: #79c0ff;
+  --accent:        #f78166;
+  --accent2:       #ffa657;
+  --danger:        #f85149;
+  --success:       #3fb950;
+  --sidebar-bg:    #090d12;
+  --sidebar-border:#21262d;
+  --card-hover-shadow: 0 4px 24px rgba(88,166,255,0.1);
+  --input-bg:      #1c2128;
+}
+
+/* ══════════════════════════════════════════
+   BASE STYLES
+══════════════════════════════════════════ */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 html, body {
-  background: var(--black);
-  color: var(--text-primary);
+  background: var(--bg);
+  color: var(--text);
   font-family: 'EB Garamond', 'Times New Roman', serif;
   font-size: 17px;
   line-height: 1.65;
   min-height: 100vh;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  transition: background 0.3s ease, color 0.2s ease;
 }
 
 h1, h2, h3, h4, h5, h6, .cinzel {
   font-family: 'Cinzel', 'Times New Roman', serif;
   letter-spacing: 0.04em;
-  color: var(--text-primary);
+  color: var(--text);
   line-height: 1.2;
 }
 
-/* ── Scrollbar ── */
-::-webkit-scrollbar { width: 5px; height: 5px; }
-::-webkit-scrollbar-track { background: var(--deep); }
-::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--border-light); }
-
-/* ── Glow ── */
-.draftz-glow {
-  text-shadow: 0 0 40px rgba(212,175,106,0.25), 0 0 80px rgba(212,175,106,0.08);
+[data-theme="colorful"] h1,
+[data-theme="colorful"] h2,
+[data-theme="colorful"] h3 {
+  font-family: -apple-system, 'Segoe UI', sans-serif;
+  letter-spacing: 0;
 }
+
+[data-theme="colorful"] body,
+[data-theme="colorful"] p,
+[data-theme="colorful"] span,
+[data-theme="colorful"] label {
+  font-family: -apple-system, 'Segoe UI', sans-serif;
+  font-size: 14px;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: var(--bg-deep); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--border2); }
 
 /* ── Cards ── */
 .card-hover {
@@ -67,15 +138,15 @@ h1, h2, h3, h4, h5, h6, .cinzel {
   background: var(--surface);
 }
 .card-hover:hover {
-  border-color: var(--border-light);
-  box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+  border-color: var(--border2);
+  box-shadow: var(--card-hover-shadow);
   transform: translateY(-2px);
 }
 
 /* ── Buttons ── */
 .btn-primary {
   background: var(--silver);
-  color: #000;
+  color: var(--bg);
   font-family: 'Cinzel', serif;
   font-weight: 700;
   font-size: 0.72rem;
@@ -83,19 +154,23 @@ h1, h2, h3, h4, h5, h6, .cinzel {
   text-transform: uppercase;
   transition: all 0.2s ease;
   display: inline-block;
+  cursor: pointer;
+}
+[data-theme="colorful"] .btn-primary {
+  font-family: -apple-system, 'Segoe UI', sans-serif;
+  letter-spacing: 0.04em;
+  font-size: 0.8rem;
+  border-radius: 6px !important;
 }
 .btn-primary:hover {
   background: var(--silver-bright);
-  box-shadow: 0 0 24px rgba(200,200,200,0.25);
+  box-shadow: 0 0 20px rgba(88,166,255,0.2);
 }
-.btn-primary:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
+.btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
 
 .btn-ghost {
   background: transparent;
-  color: var(--text-secondary);
+  color: var(--text-sub);
   border: 1px solid var(--border);
   font-family: 'Cinzel', serif;
   font-size: 0.72rem;
@@ -104,56 +179,48 @@ h1, h2, h3, h4, h5, h6, .cinzel {
   text-transform: uppercase;
   transition: all 0.2s ease;
   display: inline-block;
+  cursor: pointer;
+}
+[data-theme="colorful"] .btn-ghost {
+  font-family: -apple-system, 'Segoe UI', sans-serif;
+  letter-spacing: 0;
+  font-size: 0.8rem;
+  border-radius: 6px !important;
 }
 .btn-ghost:hover {
-  border-color: var(--silver-dim);
-  color: var(--text-primary);
-  background: rgba(200,200,200,0.06);
-}
-
-.btn-danger {
-  background: transparent;
-  color: var(--danger);
-  border: 1px solid transparent;
-  font-family: 'Cinzel', serif;
-  font-size: 0.68rem;
-  letter-spacing: 0.08em;
-  transition: all 0.2s;
-  cursor: pointer;
-  padding: 6px 10px;
-  border-radius: 2px;
-}
-.btn-danger:hover {
-  border-color: var(--danger);
-  background: rgba(192,84,74,0.08);
+  border-color: var(--silver);
+  color: var(--text);
+  background: rgba(88,166,255,0.06);
 }
 
 /* ── Inputs ── */
 .input-dark {
-  background: var(--surface2);
+  background: var(--input-bg);
   border: 1px solid var(--border);
-  color: var(--text-primary);
+  color: var(--text);
   font-family: 'EB Garamond', serif;
   font-size: 1rem;
   line-height: 1.5;
   transition: border 0.2s, box-shadow 0.2s;
   border-radius: 2px;
 }
-.input-dark::placeholder {
-  color: var(--text-faint);
-  font-style: italic;
+[data-theme="colorful"] .input-dark {
+  font-family: -apple-system, 'Segoe UI', sans-serif;
+  font-size: 0.88rem;
+  border-radius: 6px;
 }
+[data-theme="light"] .input-dark {
+  border-color: var(--border);
+}
+.input-dark::placeholder { color: var(--text-faint); font-style: italic; }
 .input-dark:focus {
   outline: none;
-  border-color: var(--silver-dim);
-  box-shadow: 0 0 0 2px rgba(200,200,200,0.06);
+  border-color: var(--silver);
+  box-shadow: 0 0 0 3px rgba(88,166,255,0.1);
 }
-.input-dark option {
-  background: var(--surface2);
-  color: var(--text-primary);
-}
+.input-dark option { background: var(--input-bg); color: var(--text); }
 
-/* ── Tag / Badge ── */
+/* ── Tag ── */
 .tag {
   font-family: 'Cinzel', serif;
   font-size: 0.58rem;
@@ -164,25 +231,15 @@ h1, h2, h3, h4, h5, h6, .cinzel {
   border-radius: 2px;
   display: inline-block;
 }
-
-/* ── Section label ── */
-.section-label {
-  font-family: 'Cinzel', serif;
-  font-size: 0.58rem;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  display: block;
-  margin-bottom: 5px;
+[data-theme="colorful"] .tag {
+  font-family: -apple-system, 'Segoe UI', sans-serif;
+  border-radius: 20px;
+  letter-spacing: 0;
+  font-size: 0.7rem;
+  font-weight: 600;
 }
 
-/* ── Divider ── */
-.divider {
-  border: none;
-  border-top: 1px solid var(--border);
-}
-
-/* ── Screenplay page ── */
+/* ── Screenplay ── */
 .screenplay-page {
   background: #fff;
   color: #111;
@@ -193,8 +250,18 @@ h1, h2, h3, h4, h5, h6, .cinzel {
   margin: 0 auto;
   padding: clamp(32px, 7vw, 96px) clamp(20px, 10vw, 108px);
   min-height: 1056px;
-  box-shadow: 0 8px 80px rgba(0,0,0,0.8);
+  box-shadow: 0 8px 80px rgba(0,0,0,0.6);
 }
+
+/* ── Colorful theme pill nav active ── */
+[data-theme="colorful"] .sidebar-nav-active {
+  background: rgba(88,166,255,0.12) !important;
+  border-left-color: #58a6ff !important;
+  color: #58a6ff !important;
+}
+
+/* ── Light theme sidebar ── */
+[data-theme="light"] .sidebar-logo { color: #1a1612 !important; }
 
 /* ── Print ── */
 @media print {
@@ -212,5 +279,5 @@ h1, h2, h3, h4, h5, h6, .cinzel {
   .dashboard-main { margin-left: 0 !important; padding: 64px 16px 100px !important; }
   .mobile-menu-btn { display: block !important; }
   .sidebar { transform: translateX(-100%); }
-  .sidebar.sidebar-open { transform: translateX(0); box-shadow: 8px 0 40px rgba(0,0,0,0.8); }
+  .sidebar.sidebar-open { transform: translateX(0); box-shadow: 8px 0 40px rgba(0,0,0,0.6); }
 }
