@@ -278,8 +278,14 @@ export default function ProjectDetailPage() {
 
       {/* ── Tab Bar ── */}
       <div style={{ display: 'flex', borderBottom: `1px solid ${C.border}`,
-        marginBottom: 32, overflowX: 'auto' }}>
-        {TABS.map(t => <button key={t.id} style={tabBtnStyle(t.id)} onClick={() => setTab(t.id)}>{t.icon} {t.label}</button>)}
+        marginBottom: 32, overflowX: 'auto', WebkitOverflowScrolling: 'touch' as any,
+        msOverflowStyle: 'none', scrollbarWidth: 'none' as any }}>
+        {TABS.map(t => (
+          <button key={t.id} style={tabBtnStyle(t.id)} onClick={() => setTab(t.id)}>
+            <span style={{ display: 'block' }}>{t.icon}</span>
+            <span style={{ display: 'block', fontSize: '0.5rem', marginTop: 2 }}>{t.label}</span>
+          </button>
+        ))}
       </div>
 
       {/* ══ OVERVIEW ══ */}

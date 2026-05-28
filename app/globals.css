@@ -281,3 +281,25 @@ h1, h2, h3, h4, h5, h6, .cinzel {
   .sidebar { transform: translateX(-100%); }
   .sidebar.sidebar-open { transform: translateX(0); box-shadow: 8px 0 40px rgba(0,0,0,0.6); }
 }
+
+/* ── Tab bar hide scrollbar ── */
+.tab-bar::-webkit-scrollbar { display: none; }
+
+/* ── Overview grid responsive fix ── */
+@media (max-width: 480px) {
+  .dashboard-main { padding: 68px 12px 100px !important; }
+}
+
+/* ── Prevent any element breaking viewport width ── */
+.dashboard-main * {
+  max-width: 100%;
+}
+
+/* ── Input grids stack on mobile ── */
+@media (max-width: 600px) {
+  .dashboard-main input,
+  .dashboard-main select,
+  .dashboard-main textarea {
+    font-size: 16px !important; /* prevents iOS zoom on focus */
+  }
+}
