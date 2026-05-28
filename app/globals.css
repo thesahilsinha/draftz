@@ -303,3 +303,56 @@ h1, h2, h3, h4, h5, h6, .cinzel {
     font-size: 16px !important; /* prevents iOS zoom on focus */
   }
 }
+
+@media print {
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  /* Hide absolutely everything first */
+  html, body {
+    background: #ffffff !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  body > * {
+    display: none !important;
+  }
+
+  /* Then show only the print area */
+  #screenplay-print-area {
+    display: block !important;
+    visibility: visible !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    min-height: 100vh !important;
+    background: #ffffff !important;
+    color: #111111 !important;
+    padding: 72px 108px !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    font-family: 'Courier Prime', 'Courier New', monospace !important;
+    font-size: 12pt !important;
+    line-height: 1.6 !important;
+    z-index: 99999 !important;
+  }
+
+  #screenplay-print-area * {
+    visibility: visible !important;
+    color: inherit !important;
+    background: transparent !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  /* Page breaks between A4 pages */
+  .screenplay-page-break {
+    page-break-after: always;
+  }
+}

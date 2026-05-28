@@ -167,7 +167,16 @@ export default function ScreenplayEditorPage() {
 
   // PDF export via print
   const handleExportPDF = () => {
+    // Force white background before print dialog opens
+    const orig = document.body.style.background
+    document.body.style.background = '#ffffff'
+    document.documentElement.style.background = '#ffffff'
     window.print()
+    // Restore after
+    setTimeout(() => {
+      document.body.style.background = orig
+      document.documentElement.style.background = ''
+    }, 1000)
   }
 
   // Quick pick options per type
@@ -250,16 +259,21 @@ export default function ScreenplayEditorPage() {
         {/* A4 Page Area */}
         <div className="screenplay-page-wrap" style={{ padding: '0 0 40px' }} id="screenplay-print-area" ref={pageRef}>
           <div style={{
-            background: '#fff', color: '#111',
-            width: '100%', maxWidth: 794,
-            margin: '0 auto',
-            padding: 'clamp(24px, 5vw, 96px) clamp(16px, 8vw, 108px)',
-            minHeight: A4_HEIGHT,
-            boxShadow: '0 4px 60px rgba(0,0,0,0.7)',
-            fontFamily: "'Courier Prime', 'Courier New', monospace",
-            fontSize: '12pt', lineHeight: '1.6',
-            position: 'relative',
-          }}>
+          background: '#fff',
+          color: '#111',
+          width: '100%',
+          maxWidth: 794,
+          margin: '0 auto',
+          padding: 'clamp(24px, 5vw, 96px) clamp(16px, 8vw, 108px)',
+          minHeight: 1056,
+          boxShadow: '0 4px 60px rgba(0,0,0,0.7)',
+          fontFamily: "'Courier Prime', 'Courier New', monospace",
+          fontSize: '12pt',
+          lineHeight: '1.6',
+          position: 'relative',
+        }}
+          id="screenplay-print-area"
+        >
             {/* Title block */}
             <div style={{ textAlign: 'center', marginBottom: 48, paddingBottom: 24, borderBottom: '1px solid #ddd' }}>
               <p style={{ fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.15em', fontSize: '13pt' }}>{screenplay.title}</p>
