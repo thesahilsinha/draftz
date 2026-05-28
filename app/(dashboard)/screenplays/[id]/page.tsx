@@ -255,16 +255,28 @@ export default function ScreenplayEditorPage() {
         </div>
 
         {/* Keyboard hints */}
-        <div className="no-print" style={{ display: 'flex', gap: 14, marginBottom: 20, flexWrap: 'wrap' }}>
+        <div className="no-print" style={{
+          display: 'flex', gap: 16, marginBottom: 20, flexWrap: 'wrap', alignItems: 'center',
+        }}>
           {[
             ['Enter', 'New block'],
             ['Tab', 'Cycle type'],
-            ['Backspace on empty', 'Delete'],
+            ['Backspace on empty', 'Delete block'],
             ['Click badge', 'Change type'],
           ].map(([key, desc]) => (
-            <span key={key} className="hint-key">
-              <span className="hint-key-badge">{key}</span>
-              <span className="hint-key-desc">{desc}</span>
+            <span key={key} style={{
+              display: 'inline-flex', alignItems: 'center', gap: 6,
+              fontFamily: "'Cinzel', serif", fontSize: '0.5rem',
+              letterSpacing: '0.08em', textTransform: 'uppercase',
+            }}>
+              <span style={{
+                background: '#2a2a2a', border: '1px solid #505050',
+                color: '#f0f0f0', padding: '3px 9px', borderRadius: 3,
+                fontWeight: 700, fontSize: '0.55rem', whiteSpace: 'nowrap',
+              }}>
+                {key}
+              </span>
+              <span style={{ color: '#aaaaaa' }}>{desc}</span>
             </span>
           ))}
         </div>
