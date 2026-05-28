@@ -1,24 +1,25 @@
-import type { Metadata } from 'next'
-import './globals.css'
-import { ThemeProvider } from '@/lib/theme'
+'use client'
+import Sidebar from '@/components/ui/Sidebar'
+import GrokChat from '@/components/ui/GrokChat'
 
-export const metadata: Metadata = {
-  title: 'DRAFTZ — Prodigy Pictures',
-  description: 'The Screenplay & Production Management Platform for Prodigy Pictures',
-}
-
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" data-theme="noir">
-      <head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Cinzel:wght@400;600;700;900&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body>
-        <ThemeProvider>{children}</ThemeProvider>
-      </body>
-    </html>
+    <>
+      <style>{`
+        .dashboard-wrap { display: flex; min-height: 100vh; background: var(--bg); }
+        .dashboard-main {
+          margin-left: 220px; flex: 1; padding: 40px 36px;
+          min-height: 100vh; max-width: 100%; overflow-x: hidden; box-sizing: border-box;
+        }
+        @media (max-width: 768px) {
+          .dashboard-main { margin-left: 0 !important; padding: 72px 16px 120px !important; width: 100% !important; }
+        }
+      `}</style>
+      <div className="dashboard-wrap">
+        <Sidebar />
+        <main className="dashboard-main">{children}</main>
+        <GrokChat />
+      </div>
+    </>
   )
 }

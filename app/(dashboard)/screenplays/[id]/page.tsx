@@ -1,8 +1,11 @@
+
 'use client'
+import VariablesPanel from '@/components/screenplay/VariablesPanel'
 import { useEffect, useState, useRef, useCallback } from 'react'
 import { supabase } from '@/lib/supabase'
 import { useParams } from 'next/navigation'
 import Link from 'next/link'
+
 
 type BlockType = 'scene-heading' | 'action' | 'character' | 'dialogue' | 'parenthetical' | 'transition' | 'note'
 type Block = { id: string; type: BlockType; text: string }
@@ -252,15 +255,26 @@ export default function ScreenplayEditorPage() {
         </div>
 
         {/* Keyboard hints */}
-        {/* Keyboard hints */}
-        <div className="no-print" style={{ display: 'flex', gap: 16, marginBottom: 20, flexWrap: 'wrap' }}>
-          {[['Enter', 'New block'], ['Tab', 'Cycle type'], ['Backspace on empty', 'Delete block'], ['Click type badge', 'Change type']].map(([key, desc]) => (
-            <span key={key} style={{ fontFamily: "'Cinzel', serif", fontSize: '0.5rem', letterSpacing: '0.1em', color: '#999999', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: 6 }}>
-              <span style={{ color: '#dddddd', background: '#2a2a2a', border: '1px solid #444444', padding: '2px 8px', borderRadius: 2, fontWeight: 700 }}>{key}</span>
-              <span style={{ color: '#888888' }}>{desc}</span>
+        <div className="no-print" style={{ display: 'flex', gap: 14, marginBottom: 20, flexWrap: 'wrap' }}>
+          {[
+            ['Enter', 'New block'],
+            ['Tab', 'Cycle type'],
+            ['Backspace on empty', 'Delete'],
+            ['Click badge', 'Change type'],
+          ].map(([key, desc]) => (
+            <span key={key} className="hint-key">
+              <span className="hint-key-badge">{key}</span>
+              <span className="hint-key-desc">{desc}</span>
             </span>
           ))}
         </div>
+        
+        {/* Variables Panel */}
+        {screenplay && (
+          <div className="no-print" style={{ maxWidth: 794, margin: '0 auto 20px' }}>
+            <VariablesPanel screenplayId={screenplay.id} />
+          </div>
+        )}
 
         {/* A4 Page Area */}
         <div className="screenplay-page-wrap" style={{ padding: '0 0 40px' }} id="screenplay-print-area" ref={pageRef}>
