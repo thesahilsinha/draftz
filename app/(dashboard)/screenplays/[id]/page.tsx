@@ -167,16 +167,20 @@ export default function ScreenplayEditorPage() {
 
   // PDF export via print
   const handleExportPDF = () => {
-    // Force white background before print dialog opens
-    const orig = document.body.style.background
-    document.body.style.background = '#ffffff'
-    document.documentElement.style.background = '#ffffff'
-    window.print()
-    // Restore after
+    // Temporarily add a print-ready class to body
+    document.body.classList.add('printing')
+    document.documentElement.style.setProperty('background', '#ffffff', 'important')
+    document.body.style.setProperty('background', '#ffffff', 'important')
+
+    // Small delay so styles apply before dialog
     setTimeout(() => {
-      document.body.style.background = orig
-      document.documentElement.style.background = ''
-    }, 1000)
+      window.print()
+      setTimeout(() => {
+        document.body.classList.remove('printing')
+        document.documentElement.style.removeProperty('background')
+        document.body.style.removeProperty('background')
+      }, 500)
+    }, 100)
   }
 
   // Quick pick options per type
@@ -248,10 +252,12 @@ export default function ScreenplayEditorPage() {
         </div>
 
         {/* Keyboard hints */}
+        {/* Keyboard hints */}
         <div className="no-print" style={{ display: 'flex', gap: 16, marginBottom: 20, flexWrap: 'wrap' }}>
           {[['Enter', 'New block'], ['Tab', 'Cycle type'], ['Backspace on empty', 'Delete block'], ['Click type badge', 'Change type']].map(([key, desc]) => (
-            <span key={key} style={{ fontFamily: "'Cinzel', serif", fontSize: '0.5rem', letterSpacing: '0.1em', color: '#333', textTransform: 'uppercase' }}>
-              <span style={{ color: '#555', border: '1px solid #2a2a2a', padding: '1px 6px', borderRadius: 2, marginRight: 6 }}>{key}</span>{desc}
+            <span key={key} style={{ fontFamily: "'Cinzel', serif", fontSize: '0.5rem', letterSpacing: '0.1em', color: '#999999', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: 6 }}>
+              <span style={{ color: '#dddddd', background: '#2a2a2a', border: '1px solid #444444', padding: '2px 8px', borderRadius: 2, fontWeight: 700 }}>{key}</span>
+              <span style={{ color: '#888888' }}>{desc}</span>
             </span>
           ))}
         </div>

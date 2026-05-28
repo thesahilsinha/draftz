@@ -307,52 +307,63 @@ h1, h2, h3, h4, h5, h6, .cinzel {
 @media print {
   @page {
     size: A4;
-    margin: 0;
+    margin: 18mm 20mm;
   }
 
-  /* Hide absolutely everything first */
-  html, body {
+  html {
+    background: #ffffff !important;
+  }
+
+  body {
     background: #ffffff !important;
     margin: 0 !important;
     padding: 0 !important;
   }
 
-  body > * {
+  /* Hide UI chrome */
+  .no-print,
+  nav,
+  aside,
+  header,
+  footer {
     display: none !important;
+    visibility: hidden !important;
   }
 
-  /* Then show only the print area */
+  /* Show only the screenplay content */
   #screenplay-print-area {
     display: block !important;
     visibility: visible !important;
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100vw !important;
-    min-height: 100vh !important;
     background: #ffffff !important;
     color: #111111 !important;
-    padding: 72px 108px !important;
+    width: 100% !important;
+    max-width: 100% !important;
     margin: 0 !important;
+    padding: 0 !important;
     box-shadow: none !important;
     font-family: 'Courier Prime', 'Courier New', monospace !important;
     font-size: 12pt !important;
     line-height: 1.6 !important;
-    z-index: 99999 !important;
+    position: static !important;
   }
 
   #screenplay-print-area * {
-    visibility: visible !important;
-    color: inherit !important;
     background: transparent !important;
+    box-shadow: none !important;
+    color: #111111 !important;
+    visibility: visible !important;
   }
 
-  .no-print {
-    display: none !important;
+  /* Make all parents of print area visible */
+  #screenplay-print-area,
+  #screenplay-print-area *,
+  body,
+  html {
+    overflow: visible !important;
   }
-
-  /* Page breaks between A4 pages */
-  .screenplay-page-break {
-    page-break-after: always;
-  }
+}
+/* Applied during PDF export */
+body.printing > *:not(#screenplay-print-area):not(:has(#screenplay-print-area)) {
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
